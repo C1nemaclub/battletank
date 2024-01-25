@@ -1,0 +1,92 @@
+[gd_scene load_steps=6 format=3 uid="uid://fyequ4f1aquu"]
+
+[ext_resource type="PackedScene" uid="uid://6wwegs823pqd" path="res://scenes/death_explosion.tscn" id="2_h70uo"]
+[ext_resource type="PackedScene" uid="uid://sfvxdg5pvsmx" path="res://scenes/enemy.tscn" id="3_b1hlc"]
+[ext_resource type="PackedScene" uid="uid://brnn110syfndy" path="res://scenes/player.tscn" id="4_ghxac"]
+
+[sub_resource type="GDScript" id="GDScript_resip"]
+script/source = "extends Node
+
+@onready var main_gun = $Node2D/MainGun
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+	
+		
+
+
+func _on_area_2d_2_body_entered(body):
+	print(\"body\", body)
+	pass # Replace with function body.
+
+
+
+func _on_area_2d_2_area_entered(area):
+	print(\"area\", area)
+	pass # Replace with function body.
+"
+
+[sub_resource type="Environment" id="Environment_5a1tr"]
+background_mode = 3
+tonemap_mode = 3
+glow_enabled = true
+glow_levels/1 = 7.37
+glow_levels/2 = 5.18
+glow_levels/3 = 10.2
+glow_levels/4 = 5.75
+glow_levels/5 = 5.79
+glow_intensity = 0.73
+glow_strength = 0.76
+glow_blend_mode = 0
+glow_hdr_threshold = 0.13
+glow_hdr_scale = 0.01
+glow_hdr_luminance_cap = 49.77
+glow_map_strength = 0.42
+fog_enabled = true
+fog_light_color = Color(0.690196, 0.521569, 0.0823529, 1)
+fog_sun_scatter = 1.15
+fog_density = 0.401
+fog_sky_affect = 0.41
+
+[node name="Node" type="Node"]
+script = SubResource("GDScript_resip")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0.34902, 0.34902, 0.34902, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.054902, 0.133333, 0.223529, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5a1tr")
+
+[node name="Player" parent="." instance=ExtResource("4_ghxac")]
+modulate = Color(0.678431, 0.678431, 0.678431, 1)
+position = Vector2(364, 343)
+MOVE_SPEED = 3
+Health = Object(Node2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"script":Resource("res://healthcomponent.gd"),"max_health":100.0)
+
+main_gun = Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 64),"rotation":0.0,"scale":Vector2(1.4, 1.4),"skew":0.0,"texture":Resource("res://assets/Gun_06.png"),"centered":true,"offset":Vector2(0, -50),"flip_h":false,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":Resource("res://MainGun.gd"),"BULLET":Resource("res://scenes/bullet.tscn"),"FIRE_RATE":0.2,"bullet_speed":5000)
+
+death_explosion = ExtResource("2_h70uo")
+
+[node name="Enemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_b1hlc")]
+position = Vector2(1093, 595)
+player = NodePath("../Player")
+
+[node name="Enemy2" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_b1hlc")]
+position = Vector2(130, 595)
+player = NodePath("../Player")
+
+[node name="Enemy3" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_b1hlc")]
+position = Vector2(1122, 75)
+player = NodePath("../Player")

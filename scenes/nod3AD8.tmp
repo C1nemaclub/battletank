@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://fyequ4f1aquu"]
+
+[ext_resource type="PackedScene" uid="uid://dekd87ku5lc0m" path="res://scenes/main_gun.tscn" id="2_xnl0w"]
+[ext_resource type="PackedScene" uid="uid://brnn110syfndy" path="res://scenes/player.tscn" id="4_ghxac"]
+
+[sub_resource type="GDScript" id="GDScript_resip"]
+script/source = "extends Node
+
+@onready var main_gun = $MainGun
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	main_gun.aimAt(Vector2(-1,1))
+	pass
+	
+		
+"
+
+[sub_resource type="Environment" id="Environment_5a1tr"]
+background_mode = 3
+tonemap_mode = 3
+glow_enabled = true
+glow_levels/1 = 12.96
+glow_levels/2 = 1.48
+glow_levels/3 = 2.28
+glow_levels/4 = 0.45
+glow_levels/5 = 1.29
+glow_intensity = 0.08
+glow_strength = 0.95
+glow_bloom = 0.09
+glow_blend_mode = 1
+glow_hdr_threshold = 0.16
+glow_hdr_scale = 0.0
+glow_hdr_luminance_cap = 33.09
+glow_map_strength = 1.0
+fog_enabled = true
+fog_light_color = Color(0.690196, 0.521569, 0.0823529, 1)
+fog_sun_scatter = 1.15
+fog_density = 0.401
+fog_sky_affect = 0.41
+
+[node name="Node" type="Node"]
+script = SubResource("GDScript_resip")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.054902, 0.133333, 0.223529, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5a1tr")
+
+[node name="Player" parent="." instance=ExtResource("4_ghxac")]
+position = Vector2(488, 281)
+MOVE_SPEED = 2
+
+[node name="MainGun" parent="." instance=ExtResource("2_xnl0w")]

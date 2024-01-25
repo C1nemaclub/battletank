@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://fyequ4f1aquu"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_5bw87"]
+[ext_resource type="Texture2D" uid="uid://bydfxox533j4j" path="res://assets/Hull_01.png" id="2_j0xpl"]
+[ext_resource type="PackedScene" uid="uid://xdy5qs6mlphk" path="res://scenes/bullet.tscn" id="2_kshnr"]
+[ext_resource type="Texture2D" uid="uid://c5dgy54pw5ce1" path="res://assets/Gun_01.png" id="3_jp5kg"]
+[ext_resource type="Texture2D" uid="uid://b0c8qbebowob1" path="res://assets/Track_1_A.png" id="4_dkal5"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_5bw87")
+BULLET = ExtResource("2_kshnr")
+
+[node name="Hull" type="Sprite2D" parent="."]
+position = Vector2(533, 282)
+texture = ExtResource("2_j0xpl")
+
+[node name="Gun" type="Sprite2D" parent="Hull"]
+position = Vector2(0, 55)
+texture = ExtResource("3_jp5kg")
+offset = Vector2(0, -55)
+
+[node name="Marker2D" type="Marker2D" parent="Hull/Gun"]
+position = Vector2(0, -160.76)
+
+[node name="RightTrack" type="Sprite2D" parent="Hull"]
+show_behind_parent = true
+position = Vector2(70, 5)
+texture = ExtResource("4_dkal5")
+
+[node name="LeftTrack" type="Sprite2D" parent="Hull"]
+show_behind_parent = true
+position = Vector2(-70, 5)
+texture = ExtResource("4_dkal5")

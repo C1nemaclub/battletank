@@ -1,0 +1,22 @@
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://khgtkpxexxow"]
+
+[sub_resource type="AudioEffectDistortion" id="AudioEffectDistortion_nhdlt"]
+resource_name = "Distortion"
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_ijh1q"]
+resource_name = "PitchShift"
+pitch_scale = 0.01
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_nyu2p"]
+resource_name = "Compressor"
+threshold = -22.0
+ratio = 19.0
+
+[resource]
+bus/0/volume_db = 3.44248
+bus/0/effect/0/effect = SubResource("AudioEffectDistortion_nhdlt")
+bus/0/effect/0/enabled = false
+bus/0/effect/1/effect = SubResource("AudioEffectPitchShift_ijh1q")
+bus/0/effect/1/enabled = true
+bus/0/effect/2/effect = SubResource("AudioEffectCompressor_nyu2p")
+bus/0/effect/2/enabled = false

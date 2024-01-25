@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://dekd87ku5lc0m"]
+
+[ext_resource type="Texture2D" uid="uid://bv3xmg86b8j4n" path="res://assets/Gun_06.png" id="1_gg0h3"]
+[ext_resource type="Script" path="res://MainGun.gd" id="1_vk1v5"]
+[ext_resource type="PackedScene" uid="uid://xdy5qs6mlphk" path="res://scenes/bullet.tscn" id="3_m8pka"]
+[ext_resource type="AudioStream" uid="uid://c5o2xnv4f4qx0" path="res://assets/laser1.wav" id="4_lf7o4"]
+
+[node name="MainGun" type="Sprite2D"]
+texture = ExtResource("1_gg0h3")
+script = ExtResource("1_vk1v5")
+BULLET = ExtResource("3_m8pka")
+bullet_speed = 2500
+
+[node name="Marker2D" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -195)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lf7o4")

@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://fyequ4f1aquu"]
+
+[ext_resource type="PackedScene" uid="uid://brnn110syfndy" path="res://scenes/player.tscn" id="4_ghxac"]
+[ext_resource type="PackedScene" uid="uid://bp55dfjm4lc8" path="res://scenes/Progress.tscn" id="7_8ktib"]
+
+[sub_resource type="GDScript" id="GDScript_resip"]
+script/source = "extends Node
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+	
+		
+"
+
+[sub_resource type="Environment" id="Environment_5a1tr"]
+background_mode = 3
+tonemap_mode = 3
+glow_enabled = true
+glow_levels/1 = 12.96
+glow_levels/2 = 1.48
+glow_levels/3 = 2.28
+glow_levels/4 = 0.45
+glow_levels/5 = 1.29
+glow_intensity = 0.08
+glow_strength = 0.95
+glow_bloom = 0.09
+glow_blend_mode = 1
+glow_hdr_threshold = 0.16
+glow_hdr_scale = 0.0
+glow_hdr_luminance_cap = 33.09
+glow_map_strength = 1.0
+fog_enabled = true
+fog_light_color = Color(0.690196, 0.521569, 0.0823529, 1)
+fog_sun_scatter = 1.15
+fog_density = 0.401
+fog_sky_affect = 0.41
+
+[node name="Node" type="Node"]
+script = SubResource("GDScript_resip")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.054902, 0.133333, 0.223529, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5a1tr")
+
+[node name="ProgressBar" parent="." instance=ExtResource("7_8ktib")]
+offset_left = 486.0
+offset_top = 595.0
+offset_right = 605.0
+offset_bottom = 622.0
+
+[node name="Node" parent="." instance=ExtResource("4_ghxac")]
+position = Vector2(501, 287)
+
+[connection signal="animation_done" from="ProgressBar" to="." method="_on_progress_bar_animation_done"]

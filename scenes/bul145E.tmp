@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://xdy5qs6mlphk"]
+
+[ext_resource type="Script" path="res://bullet.gd" id="1_0mjv5"]
+[ext_resource type="Texture2D" uid="uid://co0dvgiqohpir" path="res://assets/bullet.png" id="2_f6gc8"]
+[ext_resource type="PackedScene" uid="uid://dfc4qivvfbo8" path="res://scenes/explosion.tscn" id="2_girkj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kewky"]
+radius = 21.0
+height = 62.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p2wke"]
+radius = 20.0
+height = 64.0
+
+[node name="RigidBody2D" type="RigidBody2D" groups=["rigid"]]
+gravity_scale = 0.0
+script = ExtResource("1_0mjv5")
+explosion = ExtResource("2_girkj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("2_f6gc8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_kewky")
+disabled = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="." groups=["bullet"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_p2wke")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

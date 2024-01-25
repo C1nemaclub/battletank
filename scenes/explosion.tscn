@@ -1,0 +1,59 @@
+[gd_scene load_steps=12 format=3 uid="uid://dfc4qivvfbo8"]
+
+[ext_resource type="Texture2D" uid="uid://dh1f4kxpsi5ku" path="res://assets/explosion/Sprite_Effects_Explosion_000.png" id="1_kj03m"]
+[ext_resource type="Texture2D" uid="uid://h0besqi4wjv" path="res://assets/explosion/Sprite_Effects_Explosion_001.png" id="2_o27f8"]
+[ext_resource type="Texture2D" uid="uid://i1pndkiir1xq" path="res://assets/explosion/Sprite_Effects_Explosion_002.png" id="3_wh0cb"]
+[ext_resource type="Texture2D" uid="uid://c7u8vdlbsv6ux" path="res://assets/explosion/Sprite_Effects_Explosion_003.png" id="4_v4xxs"]
+[ext_resource type="Texture2D" uid="uid://dc8f724pmyyro" path="res://assets/explosion/Sprite_Effects_Explosion_004.png" id="5_xgi8g"]
+[ext_resource type="Texture2D" uid="uid://cpwok3jy5sdfx" path="res://assets/explosion/Sprite_Effects_Explosion_005.png" id="6_qwqlv"]
+[ext_resource type="Texture2D" uid="uid://x18dd2y15m7r" path="res://assets/explosion/Sprite_Effects_Explosion_006.png" id="7_ucu0p"]
+[ext_resource type="Texture2D" uid="uid://dp81g83m1c2w3" path="res://assets/explosion/Sprite_Effects_Explosion_007.png" id="8_6id5a"]
+[ext_resource type="Texture2D" uid="uid://duixdmmb6o4vi" path="res://assets/explosion/Sprite_Effects_Explosion_008.png" id="9_xkwcs"]
+[ext_resource type="Script" path="res://scenes/explosion.gd" id="10_lwq18"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1o3mk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_kj03m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_o27f8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wh0cb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_v4xxs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_xgi8g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qwqlv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ucu0p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6id5a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_xkwcs")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 20.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+texture_filter = 1
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_1o3mk")
+animation = &"explode"
+autoplay = "explode"
+frame = 8
+frame_progress = 1.0
+script = ExtResource("10_lwq18")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

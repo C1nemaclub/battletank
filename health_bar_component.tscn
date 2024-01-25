@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://xdmojth77wvh"]
+
+[ext_resource type="Script" path="res://HealthBarComponent.gd" id="1_d4s5e"]
+[ext_resource type="Script" path="res://healthcomponent.gd" id="2_pobgg"]
+
+[node name="HealthBarComponent" type="Node2D" node_paths=PackedStringArray("HealthComponent")]
+script = ExtResource("1_d4s5e")
+HealthComponent = NodePath("HealthComponent")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("2_pobgg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureProgressBar" type="ProgressBar" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_right = 139.0
+offset_bottom = 40.0
+
+[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]

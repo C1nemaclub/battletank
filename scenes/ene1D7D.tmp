@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://sfvxdg5pvsmx"]
+
+[ext_resource type="Script" path="res://scenes/enemy.gd" id="1_55y60"]
+[ext_resource type="Texture2D" uid="uid://cp5bdi6aflkxt" path="res://assets/enemy.png" id="1_mkaib"]
+
+[node name="Enemy" type="Sprite2D"]
+texture_filter = 1
+position = Vector2(403, 298)
+texture = ExtResource("1_mkaib")
+script = ExtResource("1_55y60")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-32, 32, 32, -1, -32, -32)

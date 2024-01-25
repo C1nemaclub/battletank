@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4ovqeftu04xf"]
+
+[ext_resource type="Script" path="res://scenes/plasma.gd" id="1_0lqsa"]
+[ext_resource type="Texture2D" uid="uid://cv4d70s3miucv" path="res://assets/Plasma.png" id="1_wrxok"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3oscd"]
+radius = 14.0
+height = 102.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_unnn2"]
+radius = 14.0
+height = 124.0
+
+[node name="RigidBody2D" type="RigidBody2D"]
+script = ExtResource("1_0lqsa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_wrxok")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -21)
+shape = SubResource("CapsuleShape2D_3oscd")
+disabled = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_unnn2")

@@ -13,10 +13,13 @@ config_version=5
 config/name="Frid"
 run/main_scene="res://scenes/node.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
+boot_splash/image="res://assets/enemy.png"
 config/icon="res://icon.svg"
 
 [display]
 
+window/size/mode=4
+window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
 [editor]
@@ -56,3 +59,4 @@ fire={
 [rendering]
 
 renderer/rendering_method="mobile"
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

@@ -19,13 +19,13 @@ curve = SubResource("Curve_1d2fv")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ds8wr"]
 lifetime_randomness = 0.5
 particle_flag_disable_z = true
-angle_min = 180.0
-angle_max = 180.0
+angle_min = 350.0
+angle_max = 350.0
 directional_velocity_min = 0.0
 directional_velocity_max = 0.0
 directional_velocity_curve = SubResource("CurveXYZTexture_q0ntj")
-radial_velocity_min = 105.19
-radial_velocity_max = 752.81
+radial_velocity_min = 500.0
+radial_velocity_max = 500.0
 gravity = Vector3(0, 0, 0)
 scale_min = 15.0
 scale_max = 20.0
@@ -35,7 +35,7 @@ color_ramp = SubResource("GradientTexture1D_o3b2o")
 [node name="GPUParticles2D" type="GPUParticles2D"]
 modulate = Color(1, 0, 0, 1)
 emitting = false
-amount = 25
+amount = 50
 process_material = SubResource("ParticleProcessMaterial_ds8wr")
 one_shot = true
 explosiveness = 1.0

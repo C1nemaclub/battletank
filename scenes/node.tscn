@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://fyequ4f1aquu"]
+[gd_scene load_steps=6 format=3 uid="uid://fyequ4f1aquu"]
 
-[ext_resource type="PackedScene" uid="uid://6wwegs823pqd" path="res://scenes/death_explosion.tscn" id="2_h70uo"]
 [ext_resource type="PackedScene" uid="uid://sfvxdg5pvsmx" path="res://scenes/enemy.tscn" id="3_b1hlc"]
 [ext_resource type="PackedScene" uid="uid://d4erfgrh6cxdl" path="res://scenes/hud.tscn" id="4_fmv27"]
 [ext_resource type="PackedScene" uid="uid://brnn110syfndy" path="res://scenes/player.tscn" id="4_ghxac"]
@@ -12,35 +11,42 @@ extends Node
 
 @onready var main_gun = $Node2D/MainGun
 @export var enemyTriangle: PackedScene;
+@export var player: PackedScene;
+@export var countdownSeconds: float = 5.0;
 var score = 0;
 var can_spawn = true
-var is_game_live = true;
+var is_game_live = false;
+var enemy_quantity = 2;
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$CountdownTimer.connect(\"timeout\", onTimerCountdown)
 	var enemy = get_node(\"Enemy\")
 	if (!is_instance_valid(enemyTriangle)):
 		print(\"No instance selected\")
-	pass # Replace with function body.
 
+func onTimerCountdown():
+	countdownSeconds -= 1.0;
+	$HUD.updateCountdown(countdownSeconds);
+	if(countdownSeconds <= 0):
+		$CountdownTimer.disconnect(\"timeout\", onTimerCountdown);
+		is_game_live = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(!can_spawn or !is_game_live):
 		return;
 	
-	spawnEnemy()
+	for x in enemy_quantity:
+		spawnEnemy()
 	
 	can_spawn = false;
 	await get_tree().create_timer(1).timeout
 	can_spawn = true
-	
-		
 
 
 func _on_area_2d_2_body_entered(body):
 	print(\"body\", body)
 	pass # Replace with function body.
-
 
 
 func _on_area_2d_2_area_entered(area):
@@ -58,6 +64,16 @@ func spawnEnemy():
 func enemyDeath(points):
 	updateScore(points)
 	
+func reset():
+	score = 0
+	updateScore(score)
+	
+	var _player = player.instantiate()
+	_player.global_position = Vector2(500, 500)
+	add_child(_player)
+	is_game_live = true;
+	$HUD.gameStart()
+	
 
 func _on_player_on_kill(killPoints):
 	score += killPoints;
@@ -71,39 +87,54 @@ func updateScore(points):
 func _on_player_player_death():
 	is_game_live = false;
 	$HUD.gameOver()
+
+func _on_hud_reset_game():
+	self.reset()
+
 "
 
 [sub_resource type="Environment" id="Environment_5a1tr"]
 background_mode = 3
 tonemap_mode = 3
+ssao_radius = 14.02
 glow_enabled = true
-glow_levels/1 = 7.37
+glow_levels/1 = 16.0
 glow_levels/2 = 5.18
-glow_levels/3 = 10.2
-glow_levels/4 = 5.75
-glow_levels/5 = 5.79
-glow_intensity = 0.73
+glow_levels/3 = 0.0
+glow_levels/4 = 6.12
+glow_levels/5 = 4.29
+glow_levels/6 = 4.06
+glow_levels/7 = 6.36
+glow_intensity = 0.54
 glow_strength = 0.76
 glow_blend_mode = 0
-glow_hdr_threshold = 0.13
-glow_hdr_scale = 0.01
-glow_hdr_luminance_cap = 49.77
-glow_map_strength = 0.42
+glow_hdr_threshold = 0.18
+glow_hdr_scale = 0.11
+glow_hdr_luminance_cap = 64.06
+glow_map_strength = 0.33
 fog_enabled = true
 fog_light_color = Color(0.690196, 0.521569, 0.0823529, 1)
-fog_sun_scatter = 1.15
+fog_light_energy = 4.34
+fog_sun_scatter = 12.05
 fog_density = 0.401
 fog_sky_affect = 0.41
+fog_height = 38.1
 
 [node name="GameManager" type="Node"]
 script = SubResource("GDScript_resip")
 enemyTriangle = ExtResource("3_b1hlc")
+player = ExtResource("4_ghxac")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 modulate = Color(0.34902, 0.34902, 0.34902, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -866.0
+offset_top = -642.0
+offset_right = 690.0
+offset_bottom = 528.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.054902, 0.133333, 0.223529, 1)
@@ -112,31 +143,14 @@ color = Color(0.054902, 0.133333, 0.223529, 1)
 environment = SubResource("Environment_5a1tr")
 
 [node name="Player" parent="." instance=ExtResource("4_ghxac")]
-position = Vector2(364, 343)
-death_explosion = ExtResource("2_h70uo")
+position = Vector2(500, 341)
 MOVE_SPEED = 3
-
-[node name="Enemy" parent="." instance=ExtResource("3_b1hlc")]
-position = Vector2(1125, 595)
-rotation = 3.14159
-
-[node name="Enemy2" parent="." instance=ExtResource("3_b1hlc")]
-position = Vector2(1125, 48)
-rotation = 3.14159
-
-[node name="Enemy3" parent="." instance=ExtResource("3_b1hlc")]
-position = Vector2(1001, 432)
-
-[node name="Enemy4" parent="." instance=ExtResource("3_b1hlc")]
-position = Vector2(733, 231)
-
-[node name="Enemy5" parent="." instance=ExtResource("3_b1hlc")]
-position = Vector2(819, 572)
-
-[node name="Enemy6" parent="." instance=ExtResource("3_b1hlc")]
-position = Vector2(1108, 236)
 
 [node name="HUD" parent="." instance=ExtResource("4_fmv27")]
 
+[node name="CountdownTimer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="onKill" from="Player" to="." method="_on_player_on_kill"]
 [connection signal="playerDeath" from="Player" to="." method="_on_player_player_death"]
+[connection signal="reset_game" from="HUD" to="." method="_on_hud_reset_game"]

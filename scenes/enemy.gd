@@ -1,3 +1,4 @@
+class_name Enemy;
 extends Sprite2D
 
 signal death;
@@ -6,17 +7,9 @@ signal death;
 @onready var gameManager = get_tree().get_root().get_node("GameManager")
 var t = 0.0;
 var speed = randf_range(0.05, 0.15);
+var damage: float = 20;
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	print("man", gameManager)
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#var something = get_tree().current_scene.get_node("Player")
-	#print(something.tank)
 	if(is_instance_valid(player)):
 		look_at(player.tank.global_position)
 		chase(delta)
@@ -37,13 +30,12 @@ func _on_area_2d_body_entered(body):
 
 
 func _on_area_2d_area_entered(area):
-	
 	if(area.is_in_group("player")):
 		explode()
 	
 	if(area.is_in_group("bullet")):
 		queue_free()
-		#player.emitKill(50)
+		player.emitKill(50)
 		death.emit(50)
 		#gameManager.updateScore(50)
 

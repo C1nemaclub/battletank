@@ -1,14 +1,19 @@
-[gd_scene load_steps=13 format=3 uid="uid://brnn110syfndy"]
+[gd_scene load_steps=18 format=3 uid="uid://brnn110syfndy"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_8bhti"]
 [ext_resource type="Texture2D" uid="uid://bydfxox533j4j" path="res://assets/Hull_01.png" id="1_lei3t"]
 [ext_resource type="Script" path="res://scenes/tank.gd" id="2_gdv81"]
 [ext_resource type="Texture2D" uid="uid://b0c8qbebowob1" path="res://assets/Track_1_A.png" id="2_nq768"]
+[ext_resource type="PackedScene" uid="uid://6wwegs823pqd" path="res://scenes/death_explosion.tscn" id="2_ukw48"]
 [ext_resource type="Texture2D" uid="uid://c5dgy54pw5ce1" path="res://assets/Gun_01.png" id="3_jj67p"]
 [ext_resource type="Script" path="res://scenes/player_gun.gd" id="4_dfy54"]
 [ext_resource type="PackedScene" uid="uid://bp55dfjm4lc8" path="res://scenes/Progress.tscn" id="6_10d37"]
+[ext_resource type="Script" path="res://scenes/Camera2D.gd" id="9_i2f2j"]
 [ext_resource type="PackedScene" uid="uid://sbd0lmlaar6" path="res://healthcomponent.tscn" id="9_mesrs"]
+[ext_resource type="Texture2D" uid="uid://dlpnlf8hbosxh" path="res://assets/health_bar/enemy_health_bar_background_000.png" id="10_i84d0"]
 [ext_resource type="PackedScene" uid="uid://dekd87ku5lc0m" path="res://scenes/main_gun.tscn" id="10_u74a6"]
+[ext_resource type="Texture2D" uid="uid://db8fjan82psbl" path="res://assets/health_bar/enemy_health_bar_foreground_000.png" id="11_xv5aw"]
+[ext_resource type="Texture2D" uid="uid://lg6y71sh11lh" path="res://assets/health_bar/enemy_health_bar_000.png" id="12_1c2o6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w1k40"]
 size = Vector2(91, 126)
@@ -38,6 +43,7 @@ _data = {
 modulate = Color(0.721569, 0.721569, 0.721569, 1)
 script = ExtResource("1_8bhti")
 Health = NodePath("HealthComponent")
+death_explosion = ExtResource("2_ukw48")
 main_gun = NodePath("Tank/MainGun")
 
 [node name="Tank" type="Sprite2D" parent="." groups=["player"]]
@@ -73,9 +79,10 @@ position = Vector2(0, -160.76)
 [node name="MainGun" parent="Tank" instance=ExtResource("10_u74a6")]
 position = Vector2(0, 64)
 scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_jj67p")
 offset = Vector2(0, -50)
 FIRE_RATE = 0.1
-bullet_speed = 5000
+bullet_speed = 4500
 
 [node name="Area2D" type="Area2D" parent="Tank" groups=["player"]]
 scale = Vector2(2, 2)
@@ -85,12 +92,19 @@ visible = false
 position = Vector2(-0.5, 2)
 shape = SubResource("RectangleShape2D_w1k40")
 
+[node name="Camera2D" type="Camera2D" parent="Tank"]
+unique_name_in_owner = true
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+script = ExtResource("9_i2f2j")
+
 [node name="HealthComponent" parent="." instance=ExtResource("9_mesrs")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ProgressBar" parent="CanvasLayer" instance=ExtResource("6_10d37")]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -104,6 +118,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -112,6 +127,17 @@ offset_right = 78.0
 offset_bottom = 27.0
 grow_horizontal = 2
 value = 100.0
+
+[node name="HealthB" type="TextureProgressBar" parent="CanvasLayer"]
+unique_name_in_owner = true
+texture_filter = 1
+offset_right = 256.0
+offset_bottom = 64.0
+tooltip_text = "Health"
+value = 100.0
+texture_under = ExtResource("10_i84d0")
+texture_over = ExtResource("11_xv5aw")
+texture_progress = ExtResource("12_1c2o6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

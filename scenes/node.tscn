@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://fyequ4f1aquu"]
+[gd_scene load_steps=7 format=3 uid="uid://fyequ4f1aquu"]
 
 [ext_resource type="PackedScene" uid="uid://sfvxdg5pvsmx" path="res://scenes/enemy.tscn" id="3_b1hlc"]
+[ext_resource type="AudioStream" uid="uid://dq0gcigi8eykq" path="res://assets/Orbital Colossus.mp3" id="4_0j3b6"]
 [ext_resource type="PackedScene" uid="uid://d4erfgrh6cxdl" path="res://scenes/hud.tscn" id="4_fmv27"]
 [ext_resource type="PackedScene" uid="uid://brnn110syfndy" path="res://scenes/player.tscn" id="4_ghxac"]
 
@@ -32,7 +33,9 @@ func onTimerCountdown():
 	$HUD.updateCountdown(countdownSeconds);
 	if(countdownSeconds <= 0):
 		$CountdownTimer.disconnect(\"timeout\", onTimerCountdown);
+		#$BackgroundAudio.play()
 		is_game_live = true
+		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -172,6 +175,11 @@ MOVE_SPEED = 3
 
 [node name="CountdownTimer" type="Timer" parent="."]
 autostart = true
+
+[node name="BackgroundAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_0j3b6")
+volume_db = 0.105
+bus = &"New Bus"
 
 [connection signal="onKill" from="Player" to="." method="_on_player_on_kill"]
 [connection signal="playerDeath" from="Player" to="." method="_on_player_player_death"]

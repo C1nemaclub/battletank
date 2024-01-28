@@ -134,7 +134,6 @@ enemyTriangle = ExtResource("3_b1hlc")
 player = ExtResource("4_ghxac")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 modulate = Color(0.34902, 0.34902, 0.34902, 1)
 anchors_preset = 15
 anchor_right = 1.0
@@ -145,7 +144,22 @@ offset_right = 690.0
 offset_bottom = 528.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.054902, 0.133333, 0.223529, 1)
+color = Color(0.164706, 0.317647, 0.494118, 1)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.0431373, 0.0705882, 0.133333, 1)
+polygon = PackedVector2Array(-859, -644, 1844, -640, 1848, 1176, -859, 1184)
+
+[node name="Polygon2D" type="Polygon2D" parent="Polygon2D"]
+color = Color(0.564706, 0.243137, 0.262745, 1)
+polygon = PackedVector2Array(1840, -632, 2124, -861, -1042, -883, -1041, 1372, 2151, 1417, 2129, -868, 1846, -635, 1855, 1166, -848, 1184, -840, -648)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D/Polygon2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Polygon2D/Polygon2D/StaticBody2D"]
+visible = false
+modulate = Color(0.552941, 0.552941, 0.552941, 1)
+polygon = PackedVector2Array(1849, -646, -1039, -890, -1039, 1378, 2165, 1406, 2133, -870, 1853, -638, 1861, 1162, -843, 1178, -826, -674)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5a1tr")

@@ -16,6 +16,7 @@ func updateScore(score):
 	$ScoreLabel.text = "Score: " + str(score);
 
 func gameOver():
+	await get_tree().create_timer(1).timeout
 	$GameOverLabel.visible = true
 	$ResetButton.visible = true
 

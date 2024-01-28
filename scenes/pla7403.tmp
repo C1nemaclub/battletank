@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://brnn110syfndy"]
+[gd_scene load_steps=18 format=3 uid="uid://brnn110syfndy"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_8bhti"]
 [ext_resource type="Texture2D" uid="uid://bydfxox533j4j" path="res://assets/Hull_01.png" id="1_lei3t"]
@@ -39,10 +39,7 @@ _data = {
 "hit": SubResource("Animation_rs34t")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vurgg"]
-size = Vector2(81, 128)
-
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Health", "main_gun")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("Health", "main_gun")]
 modulate = Color(0.721569, 0.721569, 0.721569, 1)
 script = ExtResource("1_8bhti")
 Health = NodePath("HealthComponent")
@@ -147,10 +144,6 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_rdemg")
 }
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_vurgg")
 
 [connection signal="area_entered" from="Tank/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Tank/Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,6 +1,6 @@
 class_name Player;
 
-extends Node2D
+extends CharacterBody2D;
 
 signal onKill;
 signal playerDeath;
@@ -20,10 +20,13 @@ func _process(delta):
 	if Input.is_action_pressed("fire"):
 		main_gun.shoot()
 	main_gun.aimAt(get_global_mouse_position())
+func _physics_process(delta):
+	move_and_slide()
 	
 func _on_health_component_has_died():
 	playerDeath.emit()
 	explode()
+	set_deferred("disabled", true)
 	main_gun.can_shoot = false
 	
 func _on_health_component_health_changed(old_value, new_value):
@@ -60,6 +63,7 @@ func start(pos: Vector2):
 	show();
 	tank.position = pos;
 	Health.initializeHealth()
+	$CanvasLayer/HealthB.value = Health.current_healt
 	main_gun.can_shoot = true
 	
 func emitKill(score: int):

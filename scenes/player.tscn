@@ -97,7 +97,7 @@ shape = SubResource("RectangleShape2D_w1k40")
 
 [node name="Camera2D" type="Camera2D" parent="Tank"]
 unique_name_in_owner = true
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.35, 0.35)
 position_smoothing_enabled = true
 script = ExtResource("9_i2f2j")
 

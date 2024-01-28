@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://sfvxdg5pvsmx"]
+[gd_scene load_steps=5 format=3 uid="uid://sfvxdg5pvsmx"]
 
 [ext_resource type="Script" path="res://scenes/enemy.gd" id="1_55y60"]
 [ext_resource type="Texture2D" uid="uid://cp5bdi6aflkxt" path="res://assets/enemy.png" id="1_mkaib"]
 [ext_resource type="PackedScene" uid="uid://dqplmgb0qqy7i" path="res://scenes/Particles.tscn" id="3_r274t"]
+
+[sub_resource type="Curve" id="Curve_1xlij"]
+_data = [Vector2(0.00666667, 0.991287), 0.0, 0.0, 0, 0, Vector2(1, 0.407507), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Enemy" type="Sprite2D"]
 texture_filter = 1
@@ -16,6 +20,16 @@ visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PackedVector2Array(-32, 32, 32, -1, -32, -32)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-36, 1)
+amount = 64
+emission_shape = 3
+emission_rect_extents = Vector2(1, 32.985)
+gravity = Vector2(-250, 0)
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_1xlij")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

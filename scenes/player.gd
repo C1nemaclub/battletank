@@ -24,6 +24,7 @@ func _process(delta):
 func _on_health_component_has_died():
 	playerDeath.emit()
 	explode()
+	main_gun.can_shoot = false
 	
 func _on_health_component_health_changed(old_value, new_value):
 	health_bar.value = new_value;
@@ -45,13 +46,21 @@ func _on_area_2d_area_entered(area):
 		
 		
 func explode():
-	Engine.time_scale = 0.1;
+	slowMo()
 	var explosion = death_explosion.instantiate(); 
 	explosion.global_position = tank.global_position;
 	explosion.rotation = tank.global_rotation;
 	explosion.emitting = true;
 	get_tree().get_root().add_child(explosion)
-	queue_free()
+	#queue_free()
+	tank.set_deferred("disable", true)
+	hide()
+	
+func start(pos: Vector2):
+	show();
+	tank.position = pos;
+	Health.initializeHealth()
+	main_gun.can_shoot = true
 	
 func emitKill(score: int):
 	onKill.emit(score)

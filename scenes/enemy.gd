@@ -9,6 +9,7 @@ var t = 0.0;
 var speed = randf_range(0.05, 0.15);
 var damage: float = 20;
 
+
 func _process(delta):
 	if(is_instance_valid(player)):
 		look_at(player.tank.global_position)

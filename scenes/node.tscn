@@ -17,8 +17,11 @@ var score = 0;
 var can_spawn = true
 var is_game_live = false;
 var enemy_quantity = 2;
+var cursor = preload(\"res://assets/Crosshair 2.png\")
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#Input.set_custom_mouse_cursor(cursor)
+	Input.set_custom_mouse_cursor(cursor, Input.CURSOR_ARROW)
 	$CountdownTimer.connect(\"timeout\", onTimerCountdown)
 	var enemy = get_node(\"Enemy\")
 	if (!is_instance_valid(enemyTriangle)):
@@ -64,16 +67,6 @@ func spawnEnemy():
 func enemyDeath(points):
 	updateScore(points)
 	
-func reset():
-	score = 0
-	updateScore(score)
-	
-	var _player = player.instantiate()
-	_player.global_position = Vector2(500, 500)
-	add_child(_player)
-	is_game_live = true;
-	$HUD.gameStart()
-	
 
 func _on_player_on_kill(killPoints):
 	score += killPoints;
@@ -89,8 +82,23 @@ func _on_player_player_death():
 	$HUD.gameOver()
 
 func _on_hud_reset_game():
-	self.reset()
-
+	#self.reset()
+	score = 0;
+	updateScore(score);
+	is_game_live = true;
+	$HUD.gameStart();
+	$Player.start(Vector2(500, 500));
+	
+func reset():
+	score = 0
+	updateScore(score)
+	
+	var _player = player.instantiate()
+	_player.global_position = Vector2(500, 500)
+	add_child(_player)
+	is_game_live = true;
+	$HUD.gameStart()
+	
 "
 
 [sub_resource type="Environment" id="Environment_5a1tr"]

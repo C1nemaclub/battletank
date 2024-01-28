@@ -17,7 +17,7 @@ func updateScore(score):
 
 func gameOver():
 	$GameOverLabel.visible = true
-	#$ResetButton.visible = true
+	$ResetButton.visible = true
 
 func _on_enemy_5_death():
 	pass # Replace with function body.
